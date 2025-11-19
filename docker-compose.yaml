@@ -28,7 +28,7 @@ services:
       - kong-net
 
   kong-migration:
-    image: kong/kong-gateway:latest
+    image: kong/kong-gateway:3.12.0.1
     container_name: kong-migration
     environment:
       - KONG_DATABASE=postgres
@@ -42,7 +42,7 @@ services:
       - kong-net
 
   kong-database:
-    image: postgres:latest
+    image: postgres:17
     container_name: kong-database
     mem_limit: 1024m
     cpus: 1.0
@@ -64,7 +64,7 @@ services:
       - "8888:8000"
 
   valkey:
-    image: valkey/valkey:latest
+    image: valkey/valkey:9.0.0
     container_name: valkey
     mem_limit: 1024m
     cpus: 1.0

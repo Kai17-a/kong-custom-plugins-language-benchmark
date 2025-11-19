@@ -1,4 +1,4 @@
-FROM kong/kong-gateway:latest
+FROM kong/kong-gateway:3.12.0.1
 
 USER root
 
