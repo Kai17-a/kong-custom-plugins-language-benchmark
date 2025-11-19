@@ -4,7 +4,7 @@
 pg_langs=("lua" "go" "py" "js")
 
 # サービス作成
-service_id=$(http POST localhost:8001/default/services -- name=test host=172.27.70.77 port:=8888 name=kong-test | jq -r '.id')
+service_id=$(http POST localhost:8001/default/services -- name=test host=host.docker.internal port:=8888 name=kong-test | jq -r '.id')
 
 # ルート作成
 echo "== create route ========"
