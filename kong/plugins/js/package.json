@@ -1,0 +1,15 @@
+{
+  "name": "js-plugin",
+  "version": "1.0.0",
+  "main": "js-plugin.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ksks1905",
+  "license": "MIT",
+  "description": "",
+  "dependencies": {
+    "kong-pdk": "^0.6.0",
+    "redis": "^5.9.0"
+  }
+}

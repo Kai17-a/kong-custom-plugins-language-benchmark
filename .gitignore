@@ -373,5 +373,5 @@ pyrightconfig.json
 # End of https://www.toptal.com/developers/gitignore/api/go,python,node,lua
 
 go-plugin
-package*.json
+package-lock.json
 
