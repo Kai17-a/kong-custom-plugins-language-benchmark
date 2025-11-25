@@ -1,41 +1,35 @@
 "use strict";
 
-const redis = require("redis");
+const valkey = require("@valkey/valkey-glide");
+let valkeyClient;
 
 class KongPlugin {
   constructor(config) {
     this.config = config;
+
+    if (!valkeyClient) {
+      valkeyClient = valkey.GlideClient.createClient({
+        addresses: [
+          {
+            host: config.valkeyHost,
+            port: config.valkeyPort,
+          },
+        ],
+        requestTimeout: 5000,
+        clientName: "test_standalone_client",
+      });
+    }
   }
 
   async access(kong) {
     try {
-      const valkeyHost = this.config.valkeyHost || "172.27.70.77";
-      const valkeyPort = this.config.valkeyPort || 6379;
-
-      const client = redis.createClient({
-        url: `redis://${valkeyHost}:${valkeyPort}`,
+      await (await valkeyClient).incr("js-plugin").catch((err) => {
+        throw err;
       });
-
-      client.on("error", async (err) => {
-        return await kong.response.exit("Valkey Client Error:", err);
-      });
-
-      await client.connect();
-
-      // let current = await client.get("js-plugin");
-
-      // if (!current) {
-      //   current = 0;
-      // }
-
-      new_value = await client.incr("js-plugin");
-      if (!new_value) {
-        await kong.response.exit("Valkey INCR failed");
-      }
-
-      // await kong.response.setHeader("X-Visited-Count", current.toString());
     } catch (error) {
-      await kong.response.exit("exception error", err);
+      const message = `Valkey INCR failed: ${error}`;
+      await kong.log.err(message);
+      await kong.response.exit(message);
     }
   }
 }

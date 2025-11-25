@@ -38,13 +38,13 @@ ENV KONG_PLUGINSERVER_GO_PLUGIN_QUERY_CMD="/usr/local/bin/go-plugin -dump"
 # Pythonプラグイン
 COPY ./plugins/py/py-plugin.py /path/to/py-plugin.py
 RUN chmod +x /path/to/py-plugin.py
-RUN pip3 install kong-pdk redis --break-system-packages
+RUN pip3 install kong-pdk valkey-glide valkey-glide-sync --break-system-packages
 ENV KONG_PLUGINSERVER_PY_PLUGIN_SOCKET=/usr/local/kong/py-plugin.sock
 ENV KONG_PLUGINSERVER_PY_PLUGIN_START_CMD="/usr/local/bin/kong-python-pluginserver --plugins-directory /path/to --socket-name py-plugin.sock"
 ENV KONG_PLUGINSERVER_PY_PLUGIN_QUERY_CMD="/usr/local/bin/kong-python-pluginserver --plugins-directory /path/to --dump-all-plugins"
 
 # JS プラグイン
-RUN npm install -g kong-pdk redis
+RUN npm install -g kong-pdk @valkey/valkey-glide
 COPY ./plugins/js /usr/local/kong/js-plugin
 RUN chmod +x /usr/local/kong/js-plugin/js-plugin.js
 ENV KONG_PLUGINSERVER_JS_PLUGIN_SOCKET=/usr/local/kong/js-pluginserver.sock

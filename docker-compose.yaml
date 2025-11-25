@@ -66,8 +66,12 @@ services:
   valkey:
     image: valkey/valkey:9.0.0
     container_name: valkey
-    mem_limit: 1024m
-    cpus: 1.0
+    mem_limit: 4096m
+    cpus: 2.0
+    environment:
+      - MAXCLIENTS=100000
+      - VALKEY_HEAP_SIZE=2G
+      - REDIS_TCP_BACKLOG=1024 
     ports:
       - "6379:6379"
 

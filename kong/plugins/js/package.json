@@ -9,7 +9,7 @@
   "license": "MIT",
   "description": "",
   "dependencies": {
-    "kong-pdk": "^0.6.0",
-    "redis": "^5.9.0"
+    "@valkey/valkey-glide": "^2.1.2",
+    "kong-pdk": "^0.6.0"
   }
 }
